@@ -1,7 +1,7 @@
-// Creation of the servor
+// Library needed
 const http = require('http');
-import fetch from 'node-fetch';
 
+// Launch the server
 const server = http.createServer(async (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
 
