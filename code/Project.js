@@ -2,26 +2,23 @@
 const http = require('http');
 require('dotenv').config();
 
+//APIs Keys 
 const api_key_plantnet = process.env.API_KEY_PLANTNET;
 const api_key_mistral = process.env.API_KEY_MISTRAL;
+
+//APIs Functions
+const test = require('./PlantnetAPI');
 
 // Launch the server
 const server = http.createServer(async (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
 
   try{
-    // Function to get the data with API of PlantNet
-    async function PlantNetAPI(){
-      const plantnet = await fetch(`https://my-api.plantnet.org/v2/species?api-key=${api_key_plantnet}&lang=en`);
-      const data = await plantnet.json();
-      return data;
-    };
-    // Wait for the API response and get list of species
-    const data = await PlantNetAPI();
+    //Call the function to get the data from PlantNet
+    const data = await test(api_key_plantnet);
     const species = data[0];
-    // const speciesId = species[0].id;  // Convert the data in string
 
-
+    // const speciesId = species[0].id;  // Convert the data in string  
     // Function to get the data with API of GBIF
     //  async function gbifAPI(id){
     //   const gbif = await fetch("https://api.gbif.org/v1/species/id/distributions");
