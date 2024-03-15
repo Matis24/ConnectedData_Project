@@ -1,7 +1,4 @@
-async function PlantNetAPI(api_key){
-    const plantnet = await fetch(`https://my-api.plantnet.org/v2/species?api-key=${api_key}&lang=en`);
-    const data = await plantnet.json();
-    return data;
+export async function PlantNetAPI(path, apiKey){
+    const response = await fetch(`https://my-api.plantnet.org/v2/${path}?api-key=${apiKey}&lang=en`);
+    return response.json();
   };
-
-module.exports = PlantNetAPI;

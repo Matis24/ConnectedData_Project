@@ -7,7 +7,7 @@ const api_key_plantnet = process.env.API_KEY_PLANTNET;
 const api_key_mistral = process.env.API_KEY_MISTRAL;
 
 //APIs Functions
-const test = require('./PlantnetAPI');
+const test = require('./PlantNetAPI');
 
 // Launch the server
 const server = http.createServer(async (req, res) => {
