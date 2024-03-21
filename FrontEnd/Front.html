@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantHelp</title>
+</head>
+<body>
+    <h1>Espèces 1</h1>
+    <button id="getDataBtn">Récupérer les informations</button>
+    <div id="dataContainer"></div>
+
+    <script>
+        document.getElementById('getDataBtn').addEventListener('click', () => {
+            fetch('http://localhost:2000/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('dataContainer').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données :', error);
+                });
+        });
+    </script>
+</body>
+</html>

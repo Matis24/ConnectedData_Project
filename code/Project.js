@@ -1,22 +1,29 @@
-// Library needed
-const http = require('http');
-require('dotenv').config();
+// Import dependencies
+import http from 'http';
+import { PlantNetAPI } from './PlantNetAPI.js';
+import { mistralAPI } from './MistralAPI.js';
+import { config } from 'dotenv';
+config();
 
-//APIs Keys 
-const api_key_plantnet = process.env.API_KEY_PLANTNET;
-const api_key_mistral = process.env.API_KEY_MISTRAL;
-
-//APIs Functions
-const test = require('./PlantNetAPI');
 
 // Launch the server
 const server = http.createServer(async (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
 
   try{
+
+    //APIs Keys 
+    const api_key_plantnet = process.env.API_KEY_PLANTNET;
+    const api_key_mistral = process.env.API_KEY_MISTRAL;
+
+    function getPlantNetSpecies(apiKey) {
+      return PlantNetAPI('species', apiKey);
+    };
+
     //Call the function to get the data from PlantNet
-    const data = await test(api_key_plantnet);
-    const species = data[0];
+    const data = await getPlantNetSpecies(api_key_plantnet);
+    const species = data.slice(0, 100);
+    const commonNames = species[0].commonNames;
 
     // const speciesId = species[0].id;  // Convert the data in string  
     // Function to get the data with API of GBIF
@@ -28,31 +35,15 @@ const server = http.createServer(async (req, res) => {
     // const distributionData = await gbifAPI(speciesId);
 
     // Mistral 
-    // Fonction
-    async function mistralAPI(){
-      const mistral = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${api_key_mistral}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "model": "mistralai/mistral-7b-instruct:free", // Optional (user controls the default),
-          "messages": [
-            {"role": "user", "content": "What is the meaning of life?"},
-          ]
-        })
-      });
-      return mistral
-    }
-
-    const mistralres = await mistralAPI();
+    const question = "Dis moi en plus sur l'espèce" + commonNames.join(", ") + "?";
+    const mistralres = await mistralAPI(api_key_mistral,question);
 
     // Send response
 
     res.end(JSON.stringify({
       message: mistralres,
-      species: species
+      species: species,
+      commonNames: commonNames
     }));
   }
 
@@ -63,7 +54,7 @@ const server = http.createServer(async (req, res) => {
 
 });
 
-const port = 3000;
+const port = 2000;
 
 server.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur http://localhost:${port}/`);
