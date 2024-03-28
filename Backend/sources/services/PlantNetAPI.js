@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 //Get the data from PlantNet depending on the path
 const PlantNetAPI = async (path = {}) => {
   try{
