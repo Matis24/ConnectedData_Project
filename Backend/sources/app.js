@@ -1,6 +1,7 @@
 import express from 'express';
 import logger from 'pino-http';
 import speciesRoute from './routes/PlantNet.js';
+import mistralRoute from './routes/MistralRouter.js';
 
 const app = express();
 
@@ -10,9 +11,8 @@ app.use(logger({ level: process.env.NODE_ENV === 'test' ? 'error' : 'info' }));
 
 
 // Use speciesRoute for the path /species and /species/commonNames
-app.use('/api/v1/species', speciesRoute);
+app.use('/species', speciesRoute);
+app.use('/species', mistralRoute);
 
-// app.listen(3000, () => {
-//   console.log('Server running on http://localhost:3000/species');
-// });
+
 export default app;

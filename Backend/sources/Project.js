@@ -1,8 +1,6 @@
 // Import dependencies
 import http from 'http';
 import app from './app.js';
-import { config } from 'dotenv';
-config();
 
 
 // Launch the server
