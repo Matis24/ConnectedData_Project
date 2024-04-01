@@ -10,7 +10,7 @@ mistralRoute.get('/:speciesId/mistral', async (req, res) => {
     try { 
         //Get the information about this species from the API of PlantNet
         const species = await getPlantNetSpecies();
-        const selectedSpecies = species.find(species => species.id === speciesId);
+        const selectedSpecies = species.find(species => species.gbifId.toString() === speciesId);
 
         //If the species is found, we ask a question to the Mistral API with the name of the species
         if (selectedSpecies) {

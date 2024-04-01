@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BioExplorer</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="img/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- For the map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+
+  <body style="background-color: #01121A; color: #EFF8FC;">
+    <header>
+      <div class="logo">
+        <img src="img/header.png"/>
+      </div>
+    </header>
+
+    <div id="root"></div>
+
+    <div id="map"></div>
+    <script>
+      // Initialize Leaflet map
+      var map = L.map('map').setView([0, 0], 2); // Centré à [latitude, longitude], avec un niveau de zoom de 2
+  
+      // Ajouter une couche de tuiles OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  
+      // Données d'exemple
+      var observations = {
+        "offset": 0,
+        "limit": 20,
+        "endOfRecords": false,
+        "results": [{
+            "taxonKey": 4125930,
+            "locationId": "tdwg:AFG",
+            "status": "PRESENT",
+            "source": "Catalogue of Life Checklist",
+            "sourceTaxonKey": 171711232
+          },
+          {
+            "taxonKey": 4125930,
+            "locationId": "tdwg:ALA",
+            "status": "PRESENT",
+            "source": "Catalogue of Life Checklist",
+            "sourceTaxonKey": 171711232
+          },
+          {
+            "taxonKey": 4125930,
+            "locationId": "tdwg:ALG",
+            "status": "PRESENT",
+            "source": "Catalogue of Life Checklist",
+            "sourceTaxonKey": 171711232
+          }
+        ]
+      };
+  
+      // Ajouter des marqueurs pour chaque observation
+      observations.results.forEach(function(observation) {
+        // Extraire les coordonnées à partir de l'identifiant de localisation
+        var locationIdParts = observation.locationId.split(':');
+        var countryCode = locationIdParts[1]; // Code du pays
+        var marker = L.marker([0, 0]).addTo(map); // Emplacement par défaut, vous pouvez modifier ceci
+        marker.bindPopup("<b>Observation</b><br>Pays: " + countryCode + "<br>Status: " + observation.status);
+      });
+    </script>
+
+
+  </body>
+
+</html>
