@@ -1,19 +1,8 @@
-header {
+body {
     text-align: center;
 }
-
+  
 .logo img {
     height: 100px;
 }
 
-#root {
-    width: 50%;
-    height: 100vh; /* ou toute autre hauteur souhaitée */
-    float: left; /* si vous voulez que #root soit à gauche */
-}
-
-#map {
-    width: 40%;
-    height: 100vh; /* ou toute autre hauteur souhaitée */
-    float: right; /* si vous voulez que #map soit à droite */
-}

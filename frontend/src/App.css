@@ -1,0 +1,26 @@
+.mistral-res {
+    margin: 50px;
+    padding: 25px;
+    border: 1px solid #77D986;
+    border-radius: 5px;
+    background-color: #1F6355;
+    color: #EFF8FC;
+}
+
+#content {
+    display: flex;
+    justify-content: space-between;
+}
+  
+#species {
+    width: 50%;
+}
+  
+#map {
+    margin-top: 40px;
+    margin-right: 40px;
+    height: 300px;
+    width: 50%;
+    border: 3px solid #000;
+}
+
