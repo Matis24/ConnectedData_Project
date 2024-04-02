@@ -90,14 +90,13 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h1 style={{ marginRight: '20px' }}>Select a Species :</h1>
           <select defaultValue="" onChange={SpeciesChange}>
-          <option disabled value=""> Select a species </option>
-            {/* There is all the scientific name of each species without the null one */}
-            {backendData.map((item, index) => (
-              item.scientificNameWithoutAuthor.length > 0 && (
-                <option key={index} value={item.scientificNameWithoutAuthor}>
-                  {item.scientificNameWithoutAuthor}
-                </option>
-              )
+            <option disabled value=""> Select a species </option>
+            {Array.from(new Set(backendData.map(item => item.scientificNameWithoutAuthor)))
+                  .filter(name => name.length > 0)
+                  .map((uniqueName, index) => (
+                    <option key={index} value={uniqueName}>
+                      {uniqueName}
+                    </option>
             ))}
           </select>
         </div>
@@ -122,11 +121,13 @@ function App() {
           </div>
         )}
       </div>
+
+      
       {/* Add the map */}
       <div id="map">
         {locationData === null && <p>Map not available</p>}
         {locationData && (
-          <MapContainer center={[locationData.lat, locationData.lng]} zoom={5} style={{ height: "60vh", width: "100%" }}>
+          <MapContainer center={[locationData.lat, locationData.lng]} zoom={5} style={{ height: "100%", width: "100%" }}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

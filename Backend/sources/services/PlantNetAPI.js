@@ -18,7 +18,7 @@
   };
 
   //Define the number of species to get
-  const limit = 10;
+  const limit = 50;
 
   //Get the species
   export const getPlantNetSpecies = () => {
