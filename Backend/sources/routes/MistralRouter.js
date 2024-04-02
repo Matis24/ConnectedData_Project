@@ -14,8 +14,8 @@ mistralRoute.get('/:speciesId/mistral', async (req, res) => {
 
         //If the species is found, we ask a question to the Mistral API with the name of the species
         if (selectedSpecies) {
-            const commonNames = selectedSpecies.commonNames
-            const question = "Dis moi en plus sur l'espèce" + commonNames.join(", ") + "?";
+            const scientificNameWithoutAuthor = selectedSpecies.scientificNameWithoutAuthor
+            const question = `Tell me more about this species : ${scientificNameWithoutAuthor} in one sentence`;
             const response = await mistralAPI(question);
             res.json(response);
         } else {
