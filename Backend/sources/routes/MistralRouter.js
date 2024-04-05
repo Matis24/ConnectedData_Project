@@ -4,6 +4,29 @@ import { mistralAPI } from '../services/MistralAPI.js';
 
 const mistralRoute = Router();
 
+// Information for the swagger
+/**
+ * @swagger
+ * /species/{speciesId}/mistral:
+ *   get:
+ *     summary: Get information about a plant species from the Mistral API
+ *     tags: [Species]
+ *     parameters:
+ *       - in: path
+ *         name: speciesId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the plant species to retrieve information for
+ *     responses:
+ *       200:
+ *         description: Information about the specified plant species from the Mistral API
+ *       404:
+ *         description: Species not found
+ *       500:
+ *         description: Internal server error
+ */
+
 mistralRoute.get('/:speciesId/mistral', async (req, res) => {
     // We get the id of the selected species
     const speciesId = req.params.speciesId;

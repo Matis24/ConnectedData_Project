@@ -136,7 +136,7 @@ function App() {
               <Marker position={[locationData.lat, locationData.lng]}>
                 <Popup>
                   <strong>Locality:</strong> {locationData.locality}<br />
-                  <strong>Scientific Name:</strong> {locationData.scientificName}
+                  {/* <strong>Scientific Name:</strong> {locationData.scientificName} */}
                 </Popup>
               </Marker>
             )}

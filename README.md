@@ -1,24 +1,52 @@
 ﻿# ConnectedData_Project
-Hi! This is my first project in connected data integration, the objective is to retrieve data via the plantNet API so that it can be used and displayed on a server using interactive map, and Mistral to give information on the species.
+Description:
 
-<!-- Base de données d'espèces : Une base de données complète et organisée des différentes espèces, classées par catégories telles que mammifères, oiseaux, poissons, etc.
+BioExplorer is a support application for scientists studying plants, and more specifically the plants covered by PlantNet. In a simple, uncluttered interface, all you have to do is select a species to retrieve certain information. You must first select a species from the drop-down list, which displays the scientific name of the listed species. 
 
-Fiches d'espèces détaillées : Des pages individuelles pour chaque espèce, comprenant des informations telles que la description, les caractéristiques physiques, le régime alimentaire, le comportement, etc.
+Once you have chosen a species, you will be shown information such as its common name. A text giving further details will then appear, along with a map showing the location where the species has been observed. (Few species have a sighting on the map).
 
-Images et vidéos : Intégration de photos et de vidéos pour illustrer chaque espèce, offrant aux utilisateurs une expérience visuelle enrichissante.
 
-Cartes géographiques : Des cartes interactives montrant la répartition géographique de chaque espèce, avec des informations sur les zones où elles peuvent être trouvées.
 
-Fonction de recherche avancée : Permet aux utilisateurs de rechercher des espèces en fonction de critères spécifiques tels que la région, le type d'habitat, la classification, etc.
+How to use it :
 
-Fonction de filtrage : Possibilité pour les utilisateurs de filtrer les espèces en fonction de divers paramètres pour affiner leurs recherches.
+After cloning the directory, go to the Backend folder (cd Backend) and run it with "npm run dev". This will call the various apis and store the data in the backend at the address :
+http://localhost:5000/species
 
-Contributions d'utilisateurs : Une fonctionnalité qui permet aux utilisateurs de soumettre des informations, des photos ou des vidéos d'espèces qu'ils ont observées, contribuant ainsi à l'enrichissement de la base de données.
+Now go to the frontend folder (cd frontend) then launch it with npm react and the BioExplorer application will be displayed at the address : 
+http://localhost:3000
 
-Blog et articles : Une section dédiée à des articles et des blogs sur la biodiversité, la conservation, les dernières découvertes scientifiques, etc.
+![BioExplorer](./frontend/public/img/website.png)
 
-Alertes et mises à jour : Un système d'alerte permettant d'informer les utilisateurs des mises à jour du site, de nouvelles espèces ajoutées, des nouvelles recherches, etc.
 
-Réseaux sociaux : Intégration de liens vers les réseaux sociaux pour partager facilement des informations sur les espèces et encourager l'interaction sociale autour du site.
 
-Langues multiples : Prise en charge de plusieurs langues pour rendre le site accessible à un public international. -->
+Contents of the directory :
+
+
+Backend :
+
+The Backend folder contains the various dependencies, such as the nodes_modules folder, package.json, the .env file containing the tokens for the apis (plantnet and mistral), which you will need to replace with your own, and the .babelrc file for testing with the jest library and ES modules. And above all the sources folder, which contains the various javascript scirpts for calling the apis and creating the backend. This folder contains : 
+
+The services folder, which contains the three scripts calling our 3 apis, PlantNetAPI.js, which calls the Plantnet API with your token and a precise path. We'll use this function to call up all the species in the drop-down list and the information for each of them. Then there's MistralAPI.js, which takes the question you ask as a parameter, and also needs a token to call it. And finally gbifAPI.js, which takes the gbifId of a species as a parameter to return information about its location, for example.
+
+The routes folder defines the backend paths for accessing the data called up by each apis. It also contains information for the swagger
+
+The test folder contains two unit tests carried out on the PlantNet and gbif api to check that we are receiving the information from the api and to detect a potential token problem. You can run the tests with npm run test.
+
+We then use the express js library in the app.js file to add the various paths defined in the routers and the swagger to the app. Thanks to the pino https library, we can retrieve information about the people accessing our site.
+
+And finally, using Project.js, we launch our app on an http server.
+
+
+
+
+FrontEnd :
+
+The frontend folder is made up of dependencies (package.json, node_modules) and two folders.
+
+The src folder contains App.js, which uses the react js library to fetch data from the backend at the specified path and stores this information in various divs. In the drop-down list and in the species info div for the plantnet species, in the mistral res div for the response of the mistral api on the selected species and in the map div for the location of the species from gbif. 
+
+The data is stored in "states" to capture changes and make the necessary modifications. So if we choose another species, the mistral and gbif APIs are recalled and we wait for the new responses.
+ 
+ The App.css file defines the size and style of the different divs and the index.js file sends the app to the r div.
+
+ Finally, the public folder contains the index.html file and its associated css folder. We use it to add backend data as well as the header and the site logo.

@@ -20,20 +20,3 @@ server.on('error', (error) => {
     throw error;
   }
 });
-
-    //APIs Keys 
-    //const api_key_plantnet = process.env.API_KEY_PLANTNET;
-    //const api_key_mistral = process.env.API_KEY_MISTRAL;
-
-
-    //Call the function to get the data from PlantNet
-
-    //const species = data.slice(0, 10);
-    //const commonNames = species[0].commonNames;
-
-    // Mistral 
-    //const question = "Dis moi en plus sur l'espèce" + commonNames.join(", ") + "?";
-    //const mistralres = await mistralAPI(api_key_mistral,question);
-
-
-
