@@ -9,7 +9,7 @@ Once you have chosen a species, you will be shown information such as its common
 
 How to use it :
 
-After cloning the directory, go to the Backend folder (cd Backend) and run it with "npm run dev". This will call the various apis and store the data in the backend at the address :
+After cloning the directory, go to the Backend folder (cd Backend) and add a .env file that contains the token of PlantNet api (https://my.plantnet.org/doc/openapi) as API_KEY_PLANTNET = "token" and the token of mistralapi from openrouter(https://openrouter.ai/models/mistralai/mistral-7b-instruct:free?tab=api) as API_KEY_MISTRAL ="token" and run it with "npm run dev". This will call the various apis and store the data in the backend at the address :
 http://localhost:5000/species
 
 Now go to the frontend folder (cd frontend) then launch it with npm react and the BioExplorer application will be displayed at the address : 
